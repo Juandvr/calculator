@@ -1,0 +1,18 @@
+#calculator {
+    border-radius: 5px;
+    background-color: rgb(176, 180, 185);
+    width: 12cm;
+    height: 12cm;
+    text-align: center;
+}
+
+#panel {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 50px);
+    justify-content: center;
+}
+
+button {
+    border-radius: 2px;
+}
