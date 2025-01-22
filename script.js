@@ -24,23 +24,35 @@ function operate(number1, number2, operator) {
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         display.value += number.textContent;
-        if (!firstNumber) {
-            firstNumber = secondNumber = parseInt(number.textContent);
-        }
-        else {
-            secondNumber = parseInt(number.textContent);
-        }
     })
 })
 
+let newOperation = true;
+
 operators.forEach(op => {
     op.addEventListener('click', () => {
-        display.value += op.textContent;
         operator = op.textContent;
+
+        if (newOperation) {
+            firstNumber = secondNumber = parseInt(display.value);
+            display.value = '';
+            newOperation = false;
+        }
     })
 })
 
 equal.addEventListener('click', () => {
-    display.value = operate(firstNumber, secondNumber, operator);
-    console.log(firstNumber, secondNumber, operator);
+    if (!newOperation) { 
+        secondNumber = parseInt(display.value);
+        let outcome = operate(firstNumber, secondNumber, operator);
+        display.value = outcome;
+        firstNumber = outcome;
+        newOperation = true;
+        console.log(firstNumber, secondNumber, operator);
+    } else {
+        let outcome = operate(firstNumber, secondNumber, operator);
+        display.value = outcome;
+        firstNumber = outcome;
+        console.log(firstNumber, secondNumber, operator);
+    }
 })
