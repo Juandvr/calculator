@@ -2,57 +2,106 @@ const display = document.getElementById('display');
 const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const equal = document.getElementById('equal');
+const clear = document.getElementById('clear');
 
 let firstNumber = 0;
 let secondNumber = 0;
-let operator = 0;
+let operator;
 
 function operate(number1, number2, operator) {
     const operations = {
         '+': (a, b) => a + b,
         '-': (a, b) => a - b,
         '*': (a, b) => a * b,
-        '/': (a, b) => a / b,
+        '/': (a, b) => b == 0 ? 'Error' : a / b
     }
 
     const operation = operations[operator];
-    if(!operation) "invalid operator";
+    if(!operation) return "invalid operator";
 
     return operation(number1, number2);
 }
 
+let newOperation = true;
+let showResult = false;
+let newNumber = false;
+
 numbers.forEach(number => {
     number.addEventListener('click', () => {
-        display.value += number.textContent;
-    })
-})
-
-let newOperation = true;
-
-operators.forEach(op => {
-    op.addEventListener('click', () => {
-        operator = op.textContent;
-
-        if (newOperation) {
-            firstNumber = secondNumber = parseInt(display.value);
+        if (!showResult) {
+            display.value += number.textContent;
+        } else if (showResult) {
             display.value = '';
-            newOperation = false;
+            display.value += number.textContent;
+            showResult = false;
+            newNumber = true;
         }
     })
 })
 
-equal.addEventListener('click', () => {
+let secondOperator = false;
+let newOperator;
+
+operators.forEach(op => {
+    op.addEventListener('click', () => {
+        if (secondOperator) {
+            newOperator = op.textContent;
+            secondNumber = parseInt(display.value);
+            let outcome = operate(firstNumber, secondNumber, operator);
+            display.value = outcome;
+            firstNumber = outcome;
+            showResult = true;
+            operator = newOperator;
+        } else if (newOperation && secondNumber == 0) {
+            operator = op.textContent;
+            newOperator = op.textContent;
+            firstNumber = secondNumber = parseInt(display.value);
+            display.value = '';
+            newOperation = false;
+            secondOperator = true;
+        } else if (newOperation) {
+            operator = op.textContent;
+            newOperator = op.textContent;
+            firstNumber = parseInt(display.value);
+            display.value = '';
+            newOperation = false;
+            secondOperator = true;
+        }
+    })
+})
+
+function calc() {
+    secondOperator = false;
     if (!newOperation) { 
-        secondNumber = parseInt(display.value);
+        if (display.value !== '') secondNumber = parseInt(display.value);
         let outcome = operate(firstNumber, secondNumber, operator);
         display.value = outcome;
         firstNumber = outcome;
+        operator = newOperator;
         newOperation = true;
-        console.log(firstNumber, secondNumber, operator);
+        showResult = true;
+    } else if (newNumber) {
+        firstNumber = parseInt(display.value);
+        let outcome = operate(firstNumber, secondNumber, operator);
+        display.value = outcome;
+        firstNumber = outcome;
+        showResult = true;
     } else {
         let outcome = operate(firstNumber, secondNumber, operator);
         display.value = outcome;
         firstNumber = outcome;
-        console.log(firstNumber, secondNumber, operator);
+        showResult = true;
     }
+}
+
+equal.addEventListener('click', calc);
+
+clear.addEventListener('click', () => {
+    display.value = '';
+    firstNumber = 0;
+    secondNumber = 0;
+    operator = 0;
+    newOperation = true;
+    showResult = false;
+    newNumber = false;
 })
