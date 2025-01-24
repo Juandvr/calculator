@@ -5,7 +5,7 @@ const operators = document.querySelectorAll('.operator');
 const equal = document.getElementById('equal');
 const clear = document.getElementById('clear');
 const dot = document.getElementById('dot');
-const backslash = document.getElementById('delete');
+const backspace = document.getElementById('delete');
 
 let firstNumber = 0;
 let secondNumber = 0;
@@ -120,7 +120,7 @@ dot.addEventListener('click', () => {
     }
 })
 
-backslash.addEventListener('click', () => {
+backspace.addEventListener('click', () => {
     if (showResult) {
         log.innerText = '';
     } else {
