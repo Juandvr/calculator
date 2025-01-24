@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Calculator</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
 </head>
 <body>
     <div id="calculator">
@@ -13,24 +14,24 @@
             <input type="text" id="display">
         </div>
         <div id="panel">
-            <button class="number">1</button>
-            <button class="number">2</button>
-            <button class="number">3</button>
-            <button class="number">4</button>
-            <button class="number">5</button>
-            <button class="number">6</button>
-            <button class="number">7</button>
-            <button class="number">8</button>
-            <button class="number">9</button>
-            <button class="number">0</button>
-            <button id="dot">.</button>
+            <button class="number" style="grid-row: 4;">1</button>
+            <button class="number" style="grid-row: 4;">2</button>
+            <button class="number" style="grid-row: 4;">3</button>
+            <button class="number" style="grid-row: 3;">4</button>
+            <button class="number" style="grid-row: 3;">5</button>
+            <button class="number" style="grid-row: 3;">6</button>
+            <button class="number" style="grid-row: 2;">7</button>
+            <button class="number" style="grid-row: 2;">8</button>
+            <button class="number" style="grid-row: 2;">9</button>
+            <button class="number" style="grid-row: 5; grid-column: 1 / 3;">0</button>
+            <button id="dot" style="grid-row: 5;">.</button>
             <button class="operator">+</button>
             <button class="operator">-</button>
-            <button class="operator">*</button>
-            <button class="operator">/</button>
-            <button id="equal">=</button>
-            <button id="delete">delete</button>
-            <button id="clear">C</button>
+            <button class="operator" style="grid-row: 1; grid-column: 4;">*</button>
+            <button class="operator" style="grid-row: 1; grid-column: 3;">/</button>
+            <button id="equal" style="grid-column: 4; grid-row: 4 / 6;">=</button>
+            <button id="delete" style="grid-row: 1; grid-column: 2;"><svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e8eaed"><path d="m456-320 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 160q-19 0-36-8.5T296-192L80-480l216-288q11-15 28-23.5t36-8.5h440q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H360ZM180-480l180 240h440v-480H360L180-480Zm400 0Z"/></svg></ion-icon></button>
+            <button id="clear" style="grid-row: 1; grid-column: 1;">C</button>
         </div>
     </div>
 </body>
