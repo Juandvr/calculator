@@ -1,4 +1,5 @@
 const display = document.getElementById('display');
+const log = document.getElementById('log');
 const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const equal = document.getElementById('equal');
@@ -49,6 +50,7 @@ operators.forEach(op => {
             secondNumber = parseInt(display.value);
             let outcome = operate(firstNumber, secondNumber, operator);
             display.value = outcome;
+            log.innerText = `${outcome} ${newOperator}`;
             firstNumber = outcome;
             showResult = true;
             operator = newOperator;
@@ -76,6 +78,7 @@ function calc() {
         if (display.value !== '') secondNumber = parseInt(display.value);
         let outcome = operate(firstNumber, secondNumber, operator);
         display.value = outcome;
+        log.innerText = `${firstNumber} ${operator} ${secondNumber} =`;
         firstNumber = outcome;
         operator = newOperator;
         newOperation = true;
@@ -84,11 +87,13 @@ function calc() {
         firstNumber = parseInt(display.value);
         let outcome = operate(firstNumber, secondNumber, operator);
         display.value = outcome;
+        log.innerText = `${firstNumber} ${operator} ${secondNumber} =`;
         firstNumber = outcome;
         showResult = true;
     } else {
         let outcome = operate(firstNumber, secondNumber, operator);
         display.value = outcome;
+        log.innerText = `${firstNumber} ${operator} ${secondNumber} =`;
         firstNumber = outcome;
         showResult = true;
     }
@@ -98,6 +103,7 @@ equal.addEventListener('click', calc);
 
 clear.addEventListener('click', () => {
     display.value = '';
+    log.innerText = '';
     firstNumber = 0;
     secondNumber = 0;
     operator = 0;

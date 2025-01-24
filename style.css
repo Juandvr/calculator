@@ -6,6 +6,23 @@
     text-align: center;
 }
 
+.screen {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    align-items: center;
+}
+
+#display {
+    text-align: right;
+}
+
+#log {
+    width: 150px;
+    height: 25px;
+    background-color: white;
+}
+
 #panel {
     display: grid;
     grid-template-columns: repeat(4, 100px);
