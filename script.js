@@ -4,6 +4,8 @@ const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const equal = document.getElementById('equal');
 const clear = document.getElementById('clear');
+const dot = document.getElementById('dot');
+const backslash = document.getElementById('delete');
 
 let firstNumber = 0;
 let secondNumber = 0;
@@ -47,7 +49,7 @@ operators.forEach(op => {
     op.addEventListener('click', () => {
         if (secondOperator) {
             newOperator = op.textContent;
-            secondNumber = parseInt(display.value);
+            secondNumber = parseFloat(display.value);
             let outcome = operate(firstNumber, secondNumber, operator);
             display.value = outcome;
             log.innerText = `${outcome} ${newOperator}`;
@@ -57,14 +59,14 @@ operators.forEach(op => {
         } else if (newOperation && secondNumber == 0) {
             operator = op.textContent;
             newOperator = op.textContent;
-            firstNumber = secondNumber = parseInt(display.value);
+            firstNumber = secondNumber = parseFloat(display.value);
             display.value = '';
             newOperation = false;
             secondOperator = true;
         } else if (newOperation) {
             operator = op.textContent;
             newOperator = op.textContent;
-            firstNumber = parseInt(display.value);
+            firstNumber = parseFloat(display.value);
             display.value = '';
             newOperation = false;
             secondOperator = true;
@@ -75,7 +77,7 @@ operators.forEach(op => {
 function calc() {
     secondOperator = false;
     if (!newOperation) { 
-        if (display.value !== '') secondNumber = parseInt(display.value);
+        if (display.value !== '') secondNumber = parseFloat(display.value);
         let outcome = operate(firstNumber, secondNumber, operator);
         display.value = outcome;
         log.innerText = `${firstNumber} ${operator} ${secondNumber} =`;
@@ -84,7 +86,7 @@ function calc() {
         newOperation = true;
         showResult = true;
     } else if (newNumber) {
-        firstNumber = parseInt(display.value);
+        firstNumber = parseFloat(display.value);
         let outcome = operate(firstNumber, secondNumber, operator);
         display.value = outcome;
         log.innerText = `${firstNumber} ${operator} ${secondNumber} =`;
@@ -110,4 +112,18 @@ clear.addEventListener('click', () => {
     newOperation = true;
     showResult = false;
     newNumber = false;
+})
+
+dot.addEventListener('click', () => {
+    if (display.value != '' && !display.value.includes('.')) {
+        display.value += '.';
+    }
+})
+
+backslash.addEventListener('click', () => {
+    if (showResult) {
+        log.innerText = '';
+    } else {
+        display.value = display.value.slice(0, -1);
+    }
 })
